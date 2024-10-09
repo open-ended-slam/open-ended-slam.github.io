@@ -1,1 +1,1 @@
-# open-ended-slamgithub.io
+# open-ended-slam.github.io
