@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="description"
     content="An open-ended metric-semantic representation learning framework based on 3D Gaussians, which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, optimized within a SLAM framework.">
-  <meta name="keywords" content="Open-Ended, Metric-Semantic, Semantic-Embedded, Gaussian Splatting, Open-Ended 3D Metric-Semantic Representation Learning via Semantic-Embedded Gaussian Splatting">
+  <meta name="keywords" content="Open-Ended, Metric-Semantic, Semantic-Embedded, Gaussian Splatting">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Open-Ended 3D Metric-Semantic Representation Learning via Semantic-Embedded Gaussian Splatting</title>
 
@@ -456,6 +456,37 @@
       </section>
 
       <section class="section">
+        <div class="columns is-centered">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Full Visualization</h2>
+    
+            <!-- Interpolating. -->
+            <div class="content has-text-justified">
+                <p>
+                    We present a complete visualization of Replica room0. The first row shows the full reconstruction results, 
+                    while the second row displays a heatmap generated from open-set semantic queries to identify objects in the scene.
+                </p>
+            </div>
+            <div class="columns is-vcentered interpolation-panel">
+                <div class="column interpolation-video-column">
+                <div id="interpolation-image-wrapper">
+                    Loading...
+                </div>
+                <input class="slider is-fullwidth is-large is-info"
+                        id="interpolation-slider"
+                        step="1" min="0" max="100" value="0" type="range">
+                </div>
+            </div>
+            <br/>
+            <!--/ Interpolating. -->
+    
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="container is-max-desktop">
           <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
@@ -597,7 +628,7 @@
             </p>
             <p>
               This means you are free to borrow the <a
-                href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+                href="https://github.com/open-ended-slam/open-ended-slam.github.io">source code</a> of this website,
               we just ask that you link back to this page in the footer.
               Please remember to remove the analytics code included in the header of the website which
               you do not want on your website.
