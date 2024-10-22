@@ -1,12 +1,12 @@
 window.HELP_IMPROVE_VIDEOJS = false;
 
-var INTERP_BASE = "./static/interpolation/stacked";
-var NUM_INTERP_FRAMES = 240;
+var INTERP_BASE = "./static/videos/heatmap_1";
+var NUM_INTERP_FRAMES = 2000;
 
 var interp_images = [];
 function preloadInterpolationImages() {
   for (var i = 0; i < NUM_INTERP_FRAMES; i++) {
-    var path = INTERP_BASE + '/' + String(i).padStart(6, '0') + '.jpg';
+    var path = INTERP_BASE + '/composite_' + String(i).padStart(4, '0') + '.png';
     interp_images[i] = new Image();
     interp_images[i].src = path;
   }
@@ -30,14 +30,13 @@ $(document).ready(function() {
     });
 
     var options = {
-    slidesToScroll: 1,
-    slidesToShow: 2.3,
-    centerMode: true, // Enable center mode
-    loop: true,
-    infinite: true,
-    autoplay: false,
-    autoplaySpeed: 3000,
-};
+			slidesToScroll: 1,
+			slidesToShow: 3,
+			loop: true,
+			infinite: true,
+			autoplay: false,
+			autoplaySpeed: 3000,
+    }
 
 		// Initialize all div with carousel class
     var carousels = bulmaCarousel.attach('.carousel', options);
