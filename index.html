@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="An open-ended metric-semantic representation learning framework based on 3D Gaussians, which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, optimized within a SLAM framework.">
+  <meta name="keywords" content="Open-Ended, Metric-Semantic, Semantic-Embedded, Gaussian Splatting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Open-Ended 3D Metric-Semantic Representation Learning via Semantic-Embedded Gaussian Splatting</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/script.js"></script>
+
+</head>
+
+<body>
+    <section class="hero">
+        <div class="hero-body">
+          <div class="container is-max-desktop">
+            <div class="columns is-centered">
+              <div class="column has-text-centered">
+                <h1 class="title is-1 publication-title">Open-Ended 3D Metric-Semantic Representation Learning via Semantic-Embedded Gaussian Splatting</h1>
+                <h3 class="title is-4 conference-authors">ICLR 2025 Submission</a></h3>
+                <div class="is-size-5 publication-authors">
+                  <span class="author-block">
+                    Anonymous Authors</span>
+                </div>
+      
+                <!-- <div class="is-size-5 publication-authors">
+                  <span class="author-block"><sup>1</sup>University of Washington,</span>
+                  <span class="author-block"><sup>2</sup>Google Research</span>
+                </div> -->
+      
+                <div class="column has-text-centered">
+                  <div class="publication-links">
+                    <!-- PDF Link. -->
+                    <span class="link-block">
+                      <a href="https://openreview.net/attachment?id=JGr4Qv9vbz&name=pdf"
+                         class="external-link button is-normal is-rounded is-dark">
+                        <span class="icon">
+                            <i class="fas fa-file-pdf"></i>
+                        </span>
+                        <span>Paper</span>
+                      </a>
+                    </span>
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <!-- Abstract. -->
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Overview</h2>
+              <div class="content has-text-justified">
+                <p><strong>TL;DR:</strong> We propose an open-ended metric-semantic representation learning framework based on 3D Gaussians, 
+                    which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, 
+                    optimized within a SLAM framework.</p>
+                <img src="./static/images/first_pic.png">
+                <p>
+                    <strong>Abstract:</strong> This work answers the question of whether it is feasible to create a comprehensive metric-semantic 3D virtual 
+                    world using everyday devices equipped with multi-view stereo. We propose an open-ended metric-semantic representation 
+                    learning framework based on 3D Gaussians, which distills open-set semantics from 2D foundation models into a scalable 
+                    and continuously evolving 3D Gaussian representation, optimized within a SLAM framework. The process is non-trivial. 
+                    The scalability requirements make direct embedding of semantic information into Gaussians impractical, resulting in 
+                    excessive memory usage and semantic inconsistencies. In response, we propose to learn semantics by aggregating from a 
+                    condensed, fixed-sized semantic pool rather than directly embedding high-dimensional raw features, significantly reducing 
+                    memory requirements compared to the point-wise representation. Additionally, by enforcing pixel-to-pixel and pixel-to-object 
+                    semantic consistency through contrastive learning and stability-guided optimization, our framework enhances coherence 
+                    and stability in semantic representations. Extensive experiments demonstrate that our framework presents a precise open-ended 
+                    metric-semantic field with superior rendering quality and tracking accuracy. Besides, it accurately captures both closed-set 
+                    object categories and open-set semantics, facilitating various applications, notably fine-grained, unrestricted 3D scene editing. 
+                    These results mark an initial yet solid step towards efficient and expressive 3D virtual world modelling. 
+                    Our code will be released.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Methodology</h2>
+              <div class="content has-text-justified">
+                <img src="./static/images/framework.png">
+                <p><strong>Our Framework.</strong>
+                    Given an RGB-D stream, our framework aims to reconstruct a scalable Gaussian field enriched with open-set semantic information. 
+                    Since assigning a high-dimensional semantic feature to each Gaussian is both computationally expensive and spatially redundant, 
+                    we introduce the Semantic Feature Aggregation, allocating semantic features only to Gaussians involved in rendering and optimization. 
+                    To further address inconsistencies of the open-set semantic features generated across frames, we introduce the Intra-Inter Semantic 
+                    Consistency Objective technique. Additionally, to reduce the impact of inaccurate new-income semantic features to the reconstructed 
+                    semantic field, we develop a Semantic Stability Guidance.</p>
+                <!-- <img src="./static/images/ssg.png"> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Tracking Result</h2>
+              <div class="content has-text-justified">
+                <img src="./static/images/tracking.png">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Results on Replica dataset</p>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Render Comparisons</h2>
+              <div class="content has-text-justified">
+                <img src="./static/images/mapping.png">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Results on Replica dataset</p>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example1" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-office3.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/point-slam-office3.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Point-SLAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example2" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-room0.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/point-slam-room0.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Point-SLAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Render Comparisons on Replica</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example3" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-tum.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset">
+                            <img src="./static/images/point-slam-tum.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Point-SLAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example4" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-scannet.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset">
+                            <img src="./static/images/point-slam-scannet.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Point-SLAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;
+                    Render Comparisons on TUM and ScanNet</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Semantic Reconstruction</h2>
+              <div class="content has-text-justified">
+                <img src="./static/images/semantic.png">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Results on Replica dataset</p>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example5" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/rasterized-semantic-1.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Rasterized Semantic
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/rasterized-RGB-1.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Rasterized RGB
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example6" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/rasterized-semantic-2.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Rasterized Semantic
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/rasterized-RGB-2.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Rasterized RGB
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    Open-set Semantic Reconstruction Results on Replica</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="columns is-centered">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Full Visualization</h2>
+    
+            <!-- Interpolating. -->
+            <div class="content has-text-justified">
+                <p>
+                    We present a complete visualization of Replica room0. The first row shows the full reconstruction results, 
+                    while the second row displays a heatmap generated from open-set semantic queries to identify objects in the scene.
+                </p>
+            </div>
+            <div class="columns is-vcentered interpolation-panel">
+                <div class="column interpolation-video-column">
+                <div id="interpolation-image-wrapper">
+                    Loading...
+                </div>
+                <input class="slider is-fullwidth is-large is-info"
+                        id="interpolation-slider"
+                        step="1" min="0" max="100" value="0" type="range">
+                </div>
+            </div>
+            <br/>
+            <!--/ Interpolating. -->
+    
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">3D Editing Results</h2>
+              <div class="content has-text-justified">
+                <p></p>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example7" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/result-1.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Result
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/origin-1.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Origin
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example8" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/result-2.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Result
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/origin-2.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Origin
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    3D Editing Results on Replica</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    
+      <script>
+        new BeforeAfter({
+          id: '#example1'
+        });
+        new BeforeAfter({
+          id: '#example2'
+        });
+        new BeforeAfter({
+          id: '#example3'
+        });
+        new BeforeAfter({
+          id: '#example4'
+        });
+        new BeforeAfter({
+          id: '#example5'
+        });
+        new BeforeAfter({
+          id: '#example6'
+        });
+        new BeforeAfter({
+          id: '#example7'
+        });
+        new BeforeAfter({
+          id: '#example8'
+        });
+    
+      </script>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                                                  href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
