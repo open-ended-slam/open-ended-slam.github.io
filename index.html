@@ -49,7 +49,7 @@
             <div class="columns is-centered">
               <div class="column has-text-centered">
                 <h1 class="title is-1 publication-title">Open-Ended 3D Metric-Semantic Representation Learning via Semantic-Embedded Gaussian Splatting</h1>
-                <h3 class="title is-4 conference-authors">ICLR 2025 Submission</a></h3>
+                <h3 class="title is-4 conference-authors">CVPR 2025 Submission</a></h3>
                 <div class="is-size-5 publication-authors">
                   <span class="author-block">
                     Anonymous Authors</span>
@@ -64,7 +64,7 @@
                   <div class="publication-links">
                     <!-- PDF Link. -->
                     <span class="link-block">
-                      <a href="https://openreview.net/attachment?id=JGr4Qv9vbz&name=pdf"
+                      <a href="https://openreview.net/pdf?id=K62vqVk9Qn"
                          class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                             <i class="fas fa-file-pdf"></i>
@@ -85,28 +85,47 @@
         <div class="container is-max-desktop">
           <!-- Abstract. -->
           <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+              <div class="content has-text-justified">
+                <img src="./static/images/web_first_pic.png">
+                <p style="font-size: 22px; text-align: center; margin-bottom: 0; margin-top: 0;">
+                  <strong>Our framework turns an RGB-D stream into an open-ended metric-semantic representation. </strong></p>
+                <p style="font-size: 16px; text-align: center; margin-top: 0;">
+                    The input of this scene is captured by <strong>Spectacular Rec APP on an IPad</strong>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <!-- Abstract. -->
+          <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Overview</h2>
               <div class="content has-text-justified">
-                <p><strong>TL;DR:</strong> We propose an open-ended metric-semantic representation learning framework based on 3D Gaussians, 
-                    which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, 
-                    optimized within a SLAM framework.</p>
-                <img src="./static/images/first_pic.png">
+                <img src="./static/images/first_pic.png" width="550" style="display: block; margin: 0 auto;">
+                <p><strong>TL;DR:</strong> We propose an open-ended metric-semantic representation learning framework based on 3D 
+                  Gaussians, which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, 
+                  optimized within a SLAM framework.</p>
+                <img src="./static/images/challenges.png">
                 <p>
-                    <strong>Abstract:</strong> This work answers the question of whether it is feasible to create a comprehensive metric-semantic 3D virtual 
-                    world using everyday devices equipped with multi-view stereo. We propose an open-ended metric-semantic representation 
-                    learning framework based on 3D Gaussians, which distills open-set semantics from 2D foundation models into a scalable 
-                    and continuously evolving 3D Gaussian representation, optimized within a SLAM framework. The process is non-trivial. 
-                    The scalability requirements make direct embedding of semantic information into Gaussians impractical, resulting in 
-                    excessive memory usage and semantic inconsistencies. In response, we propose to learn semantics by aggregating from a 
-                    condensed, fixed-sized semantic pool rather than directly embedding high-dimensional raw features, significantly reducing 
-                    memory requirements compared to the point-wise representation. Additionally, by enforcing pixel-to-pixel and pixel-to-object 
-                    semantic consistency through contrastive learning and stability-guided optimization, our framework enhances coherence 
-                    and stability in semantic representations. Extensive experiments demonstrate that our framework presents a precise open-ended 
-                    metric-semantic field with superior rendering quality and tracking accuracy. Besides, it accurately captures both closed-set 
-                    object categories and open-set semantics, facilitating various applications, notably fine-grained, unrestricted 3D scene editing. 
-                    These results mark an initial yet solid step towards efficient and expressive 3D virtual world modelling. 
-                    Our code will be released.</p>
+                    <strong>Abstract:</strong> 
+                    This work represents one step towards utilizing everyday devices equipped with multi-view stereo to create a 
+                    3D virtual world. We propose an open-ended metric-semantic representation learning approach based on 3D 
+                    Gaussians, which distills open-set semantics from 2D foundation models into a scalable and continuously 
+                    evolving 3D Gaussian representation, optimized within a SLAM framework.Given the ever-expanding nature of 3D 
+                    scenes, embedding semantic information directly into Gaussians becomes impractical, leading to excessive memory 
+                    usage and semantic inconsistencies. In response, we propose to learn semantics by aggregating from a condensed, 
+                    fixed-sized semantic pool rather than directly embedding high-dimensional raw features, reducing memory 
+                    requirements compared to point-wise representation. Additionally, by enforcing pixel-to-pixel and pixel-to-object 
+                    semantic consistency through contrastive and stability-guided optimization, our framework enhances coherence 
+                    and stability in semantic representations. Experiments show that our framework yields a precise open-ended 
+                    metric-semantic field with superior rendering quality and tracking accuracy, even surpassing SOTAs tailored 
+                    for high-fidelity rendering. Besides, it enables the capture of both closed-set object categories and open-set 
+                    semantics, facilitating various applications, notably fine-grained, unrestricted 3D scene editing. These 
+                    results mark an initial yet solid step towards efficient and expressive 3D virtual world modeling. </p>
               </div>
             </div>
           </div>
@@ -120,13 +139,11 @@
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Methodology</h2>
               <div class="content has-text-justified">
                 <img src="./static/images/framework.png">
-                <p><strong>Our Framework.</strong>
-                    Given an RGB-D stream, our framework aims to reconstruct a scalable Gaussian field enriched with open-set semantic information. 
-                    Since assigning a high-dimensional semantic feature to each Gaussian is both computationally expensive and spatially redundant, 
-                    we introduce the Semantic Feature Aggregation, allocating semantic features only to Gaussians involved in rendering and optimization. 
-                    To further address inconsistencies of the open-set semantic features generated across frames, we introduce the Intra-Inter Semantic 
-                    Consistency Objective technique. Additionally, to reduce the impact of inaccurate new-income semantic features to the reconstructed 
-                    semantic field, we develop a Semantic Stability Guidance.</p>
+                <p><strong>Framework Overview.</strong>
+                  (a) Each Gaussian is linked to a low-dimensional key to softly aggregate semantics from a fixed-size learnable 
+                  feature pool. (b) The SLAM framework processes RGB-D frames with a semantic feature map generated by a pre-trained 
+                  model. (c) To enhance semantic consistency and address ambiguity during optimization, we introduce the Intra-Inter 
+                  Semantic Consistency Objective and Semantic Stability Guidance.</p>
                 <!-- <img src="./static/images/ssg.png"> -->
               </div>
             </div>
@@ -140,12 +157,9 @@
             <div class="column is-four-fifths">
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Tracking Result</h2>
               <div class="content has-text-justified">
-                <img src="./static/images/tracking.png">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Results on Replica dataset</p>
+                <img src="./static/images/tracking.png" width="600" style="display: block; margin: 0 auto;">
+                <p style="text-align: center;">
+                    Results on Replica</p>
     
               </div>
             </div>
@@ -159,13 +173,9 @@
             <div class="column is-full-width">
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Render Comparisons</h2>
               <div class="content has-text-justified">
-                <img src="./static/images/mapping.png">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Results on Replica dataset</p>
+                <img src="./static/images/mapping.png" width="800" style="display: block; margin: 0 auto;">
+                <p style="text-align: center;">
+                    Results on Replica</p>
     
               </div>
             </div>
@@ -248,13 +258,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p style="text-align: center;">
                     Render Comparisons on Replica</p>
             </div>
           </div>
@@ -336,14 +340,8 @@
               
             </div>
             <div class="content has-text-justified">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;
-                    Render Comparisons on TUM and ScanNet</p>
+                <p style="text-align: center;">
+                    Render Comparisons on ScanNet and TUM</p>
             </div>
           </div>
         </div>
@@ -355,12 +353,9 @@
             <div class="column is-four-fifths">
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Semantic Reconstruction</h2>
               <div class="content has-text-justified">
-                <img src="./static/images/semantic.png">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    Results on Replica dataset</p>
+                <img src="./static/images/semantic.png" width="500" style="display: block; margin: 0 auto;">
+                <p style="text-align: center;">
+                    Results on Replica</p>
     
               </div>
             </div>
@@ -443,58 +438,8 @@
               
             </div>
             <div class="content has-text-justified">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <p style="text-align: center;">
                     Open-set Semantic Reconstruction Results on Replica</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="columns is-centered">
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-                <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Full Visualization</h2>
-    
-            <!-- Interpolating. -->
-            <div class="content has-text-justified">
-                <p>
-                    We present a complete visualization of Replica room0. The first row shows the full reconstruction results, 
-                    while the second row displays a heatmap generated from open-set semantic queries to identify objects in the scene.
-                </p>
-            </div>
-            <div class="columns is-vcentered interpolation-panel">
-                <div class="column interpolation-video-column">
-                <div id="interpolation-image-wrapper">
-                    Loading...
-                </div>
-                <input class="slider is-fullwidth is-large is-info"
-                        id="interpolation-slider"
-                        step="1" min="0" max="100" value="0" type="range">
-                </div>
-            </div>
-            <br/>
-            <!--/ Interpolating. -->
-    
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container is-max-desktop">
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">3D Editing Results</h2>
-              <div class="content has-text-justified">
-                <p></p>
-    
-              </div>
             </div>
           </div>
         </div>
@@ -512,17 +457,17 @@
                       <div id="example7" class="bal-container-small">
     
                         <div class="bal-after">
-                          <img src="./static/images/result-1.png">
+                          <img src="./static/images/rendered-semantic-scannet.png">
                           <div class="bal-afterPosition afterLabel" style="z-index:1;">
-                            Result
+                            Rasterized Semantic
                           </div>
                         </div>
     
                         <div class="bal-before" style="width:96.4968152866242%;">
                           <div class="bal-before-inset" style="width: 539px;">
-                            <img src="./static/images/origin-1.png">
+                            <img src="./static/images/rendered-RGB-scannet.png">
                             <div class="bal-beforePosition beforeLabel">
-                              Origin
+                              Rasterized RGB
                             </div>
                           </div>
                         </div>
@@ -546,7 +491,101 @@
                       <div id="example8" class="bal-container-small">
     
                         <div class="bal-after">
-                          <img src="./static/images/result-2.png">
+                          <img src="./static/images/rendered-semantic-tum.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Rasterized Semantic
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/rendered-RGB-tum.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Rasterized RGB
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p style="text-align: center;">
+                    Open-set Semantic Reconstruction Results on ScanNet and TUM</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="columns is-centered">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+                <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Comprehensive Visual Presentation</h2>
+    
+            <!-- Interpolating. -->
+            
+            <div class="columns is-vcentered interpolation-panel">
+                <div class="column interpolation-video-column">
+                <div id="interpolation-image-wrapper">
+                    Loading...
+                </div>
+                <input class="slider is-fullwidth is-large is-info"
+                        id="interpolation-slider"
+                        step="1" min="0" max="100" value="0" type="range">
+                </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                  This is a comprehensive visual presentation of Replica room0. The first row shows the full reconstruction results, 
+                  while the second row displays a heatmap generated from open-set semantic queries to identify objects in the scene.
+              </p>
+            </div>
+            <br/>
+            <!--/ Interpolating. -->
+    
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">3D Editing</h2>
+              <div class="content has-text-justified">
+                <p></p>
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example9" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/editing-result-1.png">
                           <div class="bal-afterPosition afterLabel" style="z-index:1;">
                             Result
                           </div>
@@ -554,7 +593,41 @@
     
                         <div class="bal-before" style="width:96.4968152866242%;">
                           <div class="bal-before-inset" style="width: 539px;">
-                            <img src="./static/images/origin-2.png">
+                            <img src="./static/images/editing-origin-1.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Origin
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example10" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/editing-result-2.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Result
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/editing-origin-2.png">
                             <div class="bal-beforePosition beforeLabel">
                               Origin
                             </div>
@@ -575,14 +648,90 @@
               
             </div>
             <div class="content has-text-justified">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    3D Editing Results on Replica</p>
+                <p style="text-align: center;">
+                    Editing</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example11" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/movement-result.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Result
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/movement-origin.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Origin
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example12" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/translation-result.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Result
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/translation-origin.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              Origin
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p style="text-align: center;">
+                    Movement & Translation</p>
             </div>
           </div>
         </div>
@@ -612,6 +761,18 @@
         });
         new BeforeAfter({
           id: '#example8'
+        });
+        new BeforeAfter({
+          id: '#example9'
+        });
+        new BeforeAfter({
+          id: '#example10'
+        });
+        new BeforeAfter({
+          id: '#example11'
+        });
+        new BeforeAfter({
+          id: '#example12'
         });
     
       </script>
