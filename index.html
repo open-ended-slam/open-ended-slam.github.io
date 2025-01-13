@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="./static/css/index.css">
-  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+  <link rel="icon" href="./static/images/favicon.svg">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
@@ -43,6 +43,7 @@
 </head>
 
 <body>
+
     <section class="hero">
         <div class="hero-body">
           <div class="container is-max-desktop">
@@ -87,9 +88,9 @@
           <div class="columns is-centered has-text-centered">
             <div class="column is-full-width">
               <div class="content has-text-justified">
-                <img src="./static/images/web_first_pic.png">
+                <img src="./static/images/web_first_pic.png" width="1200" style="display: block; margin: 0 auto;">
                 <p style="font-size: 22px; text-align: center; margin-bottom: 0; margin-top: 0;">
-                  <strong>Our framework turns an RGB-D stream into an open-ended metric-semantic representation. </strong></p>
+                  <strong>We propose an open-ended metric-semantic representation learning approach with the input captured by everyday devices. </strong></p>
                 <p style="font-size: 16px; text-align: center; margin-top: 0;">
                     The input of this scene is captured by <strong>Spectacular Rec APP on an IPad</strong>.</p>
               </div>
@@ -534,15 +535,18 @@
     
             <!-- Interpolating. -->
             
-            <div class="columns is-vcentered interpolation-panel">
-                <div class="column interpolation-video-column">
-                <div id="interpolation-image-wrapper" style="background-color: #f0f0f0; height: 310pt; display: flex; align-items: center; justify-content: center;">
-                    Loading...
-                </div>
-                <input class="slider is-fullwidth is-large is-info"
-                        id="interpolation-slider"
-                        step="1" min="0" max="100" value="0" type="range">
-                </div>
+            <div class="content has-text-centered">
+              <video id="replay-video"
+                     controls
+                     muted
+                     preload
+                     playsinline
+                     autoplay
+                     loop
+                     width="100%">
+                <source src="./static/videos/visual.mp4"
+                        type="video/mp4">
+              </video>
             </div>
             <div class="content has-text-justified">
               <p>
