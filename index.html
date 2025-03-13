@@ -49,8 +49,8 @@
           <div class="container is-max-desktop">
             <div class="columns is-centered">
               <div class="column has-text-centered">
-                <h1 class="title is-1 publication-title">Open-Ended 3D Metric-Semantic Representation Learning via Semantic-Embedded Gaussian Splatting</h1>
-                <h3 class="title is-4 conference-authors">CVPR 2025 Submission</a></h3>
+                <h1 class="title is-1 publication-title">Open-Set Semantic Gaussian Splatting SLAM with Expandable Representation</h1>
+                <h3 class="title is-4 conference-authors">ICCV 2025 Submission</a></h3>
                 <div class="is-size-5 publication-authors">
                   <span class="author-block">
                     Anonymous Authors</span>
@@ -65,7 +65,7 @@
                   <div class="publication-links">
                     <!-- PDF Link. -->
                     <span class="link-block">
-                      <a href="https://openreview.net/pdf?id=K62vqVk9Qn"
+                      <a href="https://openreview.net/pdf?id=YVbcmim77m"
                          class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                             <i class="fas fa-file-pdf"></i>
@@ -87,46 +87,22 @@
           <!-- Abstract. -->
           <div class="columns is-centered has-text-centered">
             <div class="column is-full-width">
-              <div class="content has-text-justified">
-                <img src="./static/images/web_first_pic.png" width="1200" style="display: block; margin: 0 auto;">
-                <p style="font-size: 22px; text-align: center; margin-bottom: 0; margin-top: 0;">
-                  <strong>We propose an open-ended metric-semantic representation learning approach with the input captured by everyday devices. </strong></p>
-                <p style="font-size: 16px; text-align: center; margin-top: 0;">
-                    The input of this scene is captured by <strong>Spectacular Rec APP on an IPad</strong>.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container is-max-desktop">
-          <!-- Abstract. -->
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Overview</h2>
               <div class="content has-text-justified">
-                <img src="./static/images/first_pic.png" width="550" style="display: block; margin: 0 auto;">
-                <p><strong>TL;DR:</strong> We propose an open-ended metric-semantic representation learning framework based on 3D 
+                <img src="./static/images/first_pic.png" width="1200" style="display: block; margin: 0 auto;">
+                <!-- <p><strong>TL;DR:</strong> We propose an open-ended metric-semantic representation learning framework based on 3D 
                   Gaussians, which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, 
-                  optimized within a SLAM framework.</p>
-                <img src="./static/images/challenges.png">
+                  optimized within a SLAM framework.</p> -->
                 <p>
                     <strong>Abstract:</strong> 
-                    This work represents one step towards utilizing everyday devices equipped with multi-view stereo to create a 
-                    3D virtual world. We propose an open-ended metric-semantic representation learning approach based on 3D 
-                    Gaussians, which distills open-set semantics from 2D foundation models into a scalable and continuously 
-                    evolving 3D Gaussian representation, optimized within a SLAM framework.Given the ever-expanding nature of 3D 
-                    scenes, embedding semantic information directly into Gaussians becomes impractical, leading to excessive memory 
-                    usage and semantic inconsistencies. In response, we propose to learn semantics by aggregating from a condensed, 
-                    fixed-sized semantic pool rather than directly embedding high-dimensional raw features, reducing memory 
-                    requirements compared to point-wise representation. Additionally, by enforcing pixel-to-pixel and pixel-to-object 
-                    semantic consistency through contrastive and stability-guided optimization, our framework enhances coherence 
-                    and stability in semantic representations. Experiments show that our framework yields a precise open-ended 
-                    metric-semantic field with superior rendering quality and tracking accuracy, even surpassing SOTAs tailored 
-                    for high-fidelity rendering. Besides, it enables the capture of both closed-set object categories and open-set 
-                    semantics, facilitating various applications, notably fine-grained, unrestricted 3D scene editing. These 
-                    results mark an initial yet solid step towards efficient and expressive 3D virtual world modeling. </p>
+                    This work enables everyday devices, e.g., smartphones, to dynamically capture open-ended 3D scenes with rich, expandable semantics for immersive virtual worlds. 
+                    While 3DGS and foundation models hold promise for semantic scene understanding, existing solutions suffer from unscalable semantic integration, prohibitive memory 
+                    costs, and cross-view inconsistency. To respond, we propose Open-Set Semantic Gaussian Splatting SLAM, a GS-SLAM system augmented by an expandable semantic 
+                    feature pool that decouples condensed scene-level semantics from individual 3D Gaussians. Each Gaussian references semantics via a lightweight indexing vector, 
+                    reducing memory overhead by orders of magnitude while supporting dynamic updates. Besides, we introduce a consistency-aware optimization strategy alongside a 
+                    Semantic Stability Guidance mechanism to enhance long-term, cross-view semantic consistency and resolve ambiguities. Experiments demonstrate that our system 
+                    achieves high-fidelity rendering with scalable, open-set semantics across both controlled and in-the-wild envi-ronments, supporting applications like 3D localization 
+                    and scene editing. These results mark an initial yet solid step towards high-quality, expressive, and accessible 3D virtual world modeling.  </p>
               </div>
             </div>
           </div>
@@ -141,10 +117,9 @@
               <div class="content has-text-justified">
                 <img src="./static/images/framework.png">
                 <p><strong>Framework Overview.</strong>
-                  (a) Each Gaussian is linked to a low-dimensional key to softly aggregate semantics from a fixed-size learnable 
-                  feature pool. (b) The SLAM framework processes RGB-D frames with a semantic feature map generated by a pre-trained 
-                  model. (c) To enhance semantic consistency and address ambiguity during optimization, we introduce the Intra-Inter 
-                  Semantic Consistency Objective and Semantic Stability Guidance.</p>
+                  We enhance existing 3DGS-based SLAM with an expandable semantic representation, using an expandable semantic feature pool for growing semantics and assigning each 
+                  Gaussianan aggregated semantic from the pool. Moreover, to improve consistency and reduce ambiguity, we introduce Intra-Inter Semantic Consistency Objectives and 
+                  Semantic Stability Guidance.</p>
                 <!-- <img src="./static/images/ssg.png"> -->
               </div>
             </div>
@@ -172,11 +147,17 @@
         <div class="container is-max-desktop">
           <div class="columns is-centered has-text-centered">
             <div class="column is-full-width">
-              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Render Comparisons</h2>
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Appearance Mapping Results</h2>
               <div class="content has-text-justified">
                 <img src="./static/images/mapping.png" width="800" style="display: block; margin: 0 auto;">
                 <p style="text-align: center;">
-                    Results on Replica</p>
+                    Rendering Results on Replica</p>
+    
+              </div>
+              <div class="content has-text-justified">
+                <img src="./static/images/reconstruction.png" width="650" style="display: block; margin: 0 auto;">
+                <p style="text-align: center;">
+                    Reconstruction Results on Replica</p>
     
               </div>
             </div>
@@ -194,6 +175,156 @@
                   <div class="columns is-centered">
                     <div class="column is-full-width">
                       <div id="example1" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-office0.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/splatam-office0.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              SplaTAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example2" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-office1.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/splatam-office1.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              SplaTAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="columns is-centered">
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example3" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-office4.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/splatam-office4.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              SplaTAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example4" class="bal-container-small">
+    
+                        <div class="bal-after">
+                          <img src="./static/images/ours-room1.png">
+                          <div class="bal-afterPosition afterLabel" style="z-index:1;">
+                            Ours
+                          </div>
+                        </div>
+    
+                        <div class="bal-before" style="width:96.4968152866242%;">
+                          <div class="bal-before-inset" style="width: 539px;">
+                            <img src="./static/images/splatam-room1.png">
+                            <div class="bal-beforePosition beforeLabel">
+                              SplaTAM
+                            </div>
+                          </div>
+                        </div>
+    
+                        <div class="bal-handle" style="left:96.4968152866242%;">
+                          <span class=" handle-left-arrow"></span>
+                          <span class="handle-right-arrow"></span>
+                        </div>
+    
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="content has-text-justified">
+                <p style="text-align: center;">
+                    Rendering Comparisons over SplaTAM on Replica</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container ">
+          <div class=" has-text-centered">
+            <div class="columns is-centered">
+              <!-- Visual Effects. -->
+              <div class="column">
+                <div class="content">
+                  <div class="columns is-centered">
+                    <div class="column is-full-width">
+                      <div id="example5" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/ours-office3.png">
@@ -227,7 +358,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example2" class="bal-container-small">
+                      <div id="example6" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/ours-room0.png">
@@ -260,7 +391,7 @@
             </div>
             <div class="content has-text-justified">
                 <p style="text-align: center;">
-                    Render Comparisons on Replica</p>
+                  Rendering Comparisons over Point-SLAM on Replica</p>
             </div>
           </div>
         </div>
@@ -275,7 +406,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example3" class="bal-container-small">
+                      <div id="example7" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/ours-tum.png">
@@ -309,7 +440,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example4" class="bal-container-small">
+                      <div id="example8" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/ours-scannet.png">
@@ -356,7 +487,13 @@
               <div class="content has-text-justified">
                 <img src="./static/images/semantic.png" width="500" style="display: block; margin: 0 auto;">
                 <p style="text-align: center;">
-                    Results on Replica</p>
+                  Comparisons with Closed-Set Semantic SLAM</p>
+    
+              </div>
+              <div class="content has-text-justified">
+                <img src="./static/images/sfm.png" width="500" style="display: block; margin: 0 auto;">
+                <p style="text-align: center;">
+                  Comparisons with SfM-based Open-Set Semantic Methods</p>
     
               </div>
             </div>
@@ -373,7 +510,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example5" class="bal-container-small">
+                      <div id="example9" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/rasterized-semantic-1.png">
@@ -407,7 +544,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example6" class="bal-container-small">
+                      <div id="example10" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/rasterized-semantic-2.png">
@@ -528,6 +665,21 @@
       </section> -->
 
       <section class="section">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-full-width">
+              <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Everyday Devices Results on In-the-Wild Data</h2>
+              <div class="content has-text-justified">
+                <img src="./static/images/in-the-wild.png" width="2000" style="display: block; margin: 0 auto;">
+                <p></p>
+                <!-- <img src="./static/images/ssg.png"> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="columns is-centered">
           <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
@@ -563,6 +715,65 @@
       </section>
 
       <section class="section">
+        <div class="columns is-centered">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
+    
+            <!-- Interpolating. -->
+            
+            <div class="content has-text-centered">
+              <video id="replay-video"
+                     controls
+                     muted
+                     preload
+                     playsinline
+                     autoplay
+                     loop
+                     width="100%">
+                <source src="./static/videos/in-the-wild-1.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="content has-text-centered">
+              <video id="replay-video"
+                     controls
+                     muted
+                     preload
+                     playsinline
+                     autoplay
+                     loop
+                     width="100%">
+                <source src="./static/videos/in-the-wild-2.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="content has-text-centered">
+              <video id="replay-video"
+                     controls
+                     muted
+                     preload
+                     playsinline
+                     autoplay
+                     loop
+                     width="100%">
+                <source src="./static/videos/in-the-wild-3.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                  These are comprehensive visual presentations of our in-the-wild data.
+              </p>
+            </div>
+            <br/>
+            <!--/ Interpolating. -->
+    
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
         <div class="container is-max-desktop">
           <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
@@ -585,7 +796,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example9" class="bal-container-small">
+                      <div id="example11" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/editing-result-1.png">
@@ -619,7 +830,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example10" class="bal-container-small">
+                      <div id="example12" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/editing-result-2.png">
@@ -667,7 +878,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example11" class="bal-container-small">
+                      <div id="example13" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/movement-result.png">
@@ -701,7 +912,7 @@
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
-                      <div id="example12" class="bal-container-small">
+                      <div id="example14" class="bal-container-small">
     
                         <div class="bal-after">
                           <img src="./static/images/translation-result.png">
@@ -759,12 +970,12 @@
         new BeforeAfter({
           id: '#example6'
         });
-        // new BeforeAfter({
-        //   id: '#example7'
-        // });
-        // new BeforeAfter({
-        //   id: '#example8'
-        // });
+        new BeforeAfter({
+          id: '#example7'
+        });
+        new BeforeAfter({
+          id: '#example8'
+        });
         new BeforeAfter({
           id: '#example9'
         });
@@ -776,6 +987,12 @@
         });
         new BeforeAfter({
           id: '#example12'
+        });
+        new BeforeAfter({
+          id: '#example13'
+        });
+        new BeforeAfter({
+          id: '#example14'
         });
     
       </script>
