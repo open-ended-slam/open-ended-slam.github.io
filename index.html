@@ -93,7 +93,7 @@
                 <!-- <p><strong>TL;DR:</strong> We propose an open-ended metric-semantic representation learning framework based on 3D 
                   Gaussians, which distills open-set semantics from 2D foundation models into a scalable 3D Gaussian representation, 
                   optimized within a SLAM framework.</p> -->
-                <p>
+                <p style="font-size: 1.2rem;">
                     <strong>Abstract:</strong> 
                     This work enables everyday devices, e.g., smartphones, to dynamically capture open-ended 3D scenes with rich, expandable semantics for immersive virtual worlds. 
                     While 3DGS and foundation models hold promise for semantic scene understanding, existing solutions suffer from unscalable semantic integration, prohibitive memory 
@@ -116,7 +116,7 @@
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Methodology</h2>
               <div class="content has-text-justified">
                 <img src="./static/images/framework.png">
-                <p><strong>Framework Overview.</strong>
+                <p style="font-size: 1.2rem;"><strong>Framework Overview.</strong>
                   We enhance existing 3DGS-based SLAM with an expandable semantic representation, using an expandable semantic feature pool for growing semantics and assigning each 
                   Gaussianan aggregated semantic from the pool. Moreover, to improve consistency and reduce ambiguity, we introduce Intra-Inter Semantic Consistency Objectives and 
                   Semantic Stability Guidance.</p>
@@ -134,7 +134,7 @@
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Tracking Result</h2>
               <div class="content has-text-justified">
                 <img src="./static/images/tracking.png" width="600" style="display: block; margin: 0 auto;">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Results on Replica</p>
     
               </div>
@@ -150,13 +150,13 @@
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Appearance Mapping Results</h2>
               <div class="content has-text-justified">
                 <img src="./static/images/mapping.png" width="800" style="display: block; margin: 0 auto;">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Rendering Results on Replica</p>
     
               </div>
               <div class="content has-text-justified">
                 <img src="./static/images/reconstruction.png" width="650" style="display: block; margin: 0 auto;">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Reconstruction Results on Replica</p>
     
               </div>
@@ -308,7 +308,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Rendering Comparisons over SplaTAM on Replica</p>
             </div>
           </div>
@@ -390,7 +390,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                   Rendering Comparisons over Point-SLAM on Replica</p>
             </div>
           </div>
@@ -472,7 +472,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Render Comparisons on ScanNet and TUM</p>
             </div>
           </div>
@@ -486,13 +486,13 @@
               <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Semantic Reconstruction</h2>
               <div class="content has-text-justified">
                 <img src="./static/images/semantic.png" width="500" style="display: block; margin: 0 auto;">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                   Comparisons with Closed-Set Semantic SLAM</p>
     
               </div>
               <div class="content has-text-justified">
                 <img src="./static/images/sfm.png" width="500" style="display: block; margin: 0 auto;">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                   Comparisons with SfM-based Open-Set Semantic Methods</p>
     
               </div>
@@ -576,7 +576,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Open-set Semantic Reconstruction Results on Replica</p>
             </div>
           </div>
@@ -683,6 +683,89 @@
         <div class="columns is-centered">
           <div class="columns is-centered has-text-centered">
             <div class="column is-four-fifths">
+              <!-- <h2 class="title is-3" style="color: #e25757; font-weight: bolder;">In-the-Wild Reconstructions</h2> -->
+      
+              <div class="columns is-centered">
+                <div class="column is-half">
+                  <div class="content has-text-centered">
+                    <video id="replay-video-1"
+                           controls
+                           muted
+                           preload
+                           playsinline
+                           autoplay
+                           loop
+                           width="100%">
+                      <source src="./static/videos/scene1.mp4"
+                              type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="column is-half">
+                  <div class="content has-text-centered">
+                    <video id="replay-video-2"
+                           controls
+                           muted
+                           preload
+                           playsinline
+                           autoplay
+                           loop
+                           width="100%">
+                      <source src="./static/videos/scene2.mp4"
+                              type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="columns is-centered">
+                <div class="column is-half">
+                  <div class="content has-text-centered">
+                    <video id="replay-video-3"
+                           controls
+                           muted
+                           preload
+                           playsinline
+                           autoplay
+                           loop
+                           width="100%">
+                      <source src="./static/videos/scene3.mp4"
+                              type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+                <div class="column is-half">
+                  <div class="content has-text-centered">
+                    <video id="replay-video-4"
+                           controls
+                           muted
+                           preload
+                           playsinline
+                           autoplay
+                           loop
+                           width="100%">
+                      <source src="./static/videos/scene4.mp4"
+                              type="video/mp4">
+                    </video>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="content has-text-justified">
+                <!-- <p style="font-size: 1.2rem;">
+                  These are comprehensive visual presentations of our in-the-wild data.
+                </p> -->
+              </div>
+              <br/>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="columns is-centered">
+          <div class="columns is-centered has-text-centered">
+            <div class="column is-four-fifths">
                 <h2 class="title is-3" style="color: #e25757;font-weight: bolder;">Comprehensive Visual Presentation</h2>
     
             <!-- Interpolating. -->
@@ -701,68 +784,9 @@
               </video>
             </div>
             <div class="content has-text-justified">
-              <p>
+              <p style="font-size: 1.2rem;">
                   This is a comprehensive visual presentation of Replica room0. The first row shows the full reconstruction results, 
                   while the second row displays a heatmap generated from open-set semantic queries to identify objects in the scene.
-              </p>
-            </div>
-            <br/>
-            <!--/ Interpolating. -->
-    
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="columns is-centered">
-          <div class="columns is-centered has-text-centered">
-            <div class="column is-four-fifths">
-    
-            <!-- Interpolating. -->
-            
-            <div class="content has-text-centered">
-              <video id="replay-video"
-                     controls
-                     muted
-                     preload
-                     playsinline
-                     autoplay
-                     loop
-                     width="100%">
-                <source src="./static/videos/in-the-wild-1.mp4"
-                        type="video/mp4">
-              </video>
-            </div>
-            <div class="content has-text-centered">
-              <video id="replay-video"
-                     controls
-                     muted
-                     preload
-                     playsinline
-                     autoplay
-                     loop
-                     width="100%">
-                <source src="./static/videos/in-the-wild-2.mp4"
-                        type="video/mp4">
-              </video>
-            </div>
-            <div class="content has-text-centered">
-              <video id="replay-video"
-                     controls
-                     muted
-                     preload
-                     playsinline
-                     autoplay
-                     loop
-                     width="100%">
-                <source src="./static/videos/in-the-wild-3.mp4"
-                        type="video/mp4">
-              </video>
-            </div>
-            <div class="content has-text-justified">
-              <p>
-                  These are comprehensive visual presentations of our in-the-wild data.
               </p>
             </div>
             <br/>
@@ -793,6 +817,7 @@
             <div class="columns is-centered">
               <!-- Visual Effects. -->
               <div class="column">
+                <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">"Turn cabinet red."</h3>
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
@@ -827,6 +852,7 @@
               </div>
               
               <div class="column">
+                <h3 class="title is-4 has-text-centered" style="margin-bottom: 1rem;">"Make flower burn."</h3>
                 <div class="content">
                   <div class="columns is-centered">
                     <div class="column is-full-width">
@@ -862,7 +888,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Editing</p>
             </div>
           </div>
@@ -944,7 +970,7 @@
               
             </div>
             <div class="content has-text-justified">
-                <p style="text-align: center;">
+                <p style="text-align: center; font-size: 1.5rem;">
                     Movement & Translation</p>
             </div>
           </div>
