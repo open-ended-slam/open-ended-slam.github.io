@@ -50,7 +50,7 @@
             <div class="columns is-centered">
               <div class="column has-text-centered">
                 <h1 class="title is-1 publication-title">Open-Set Semantic Gaussian Splatting SLAM with Expandable Representation</h1>
-                <h3 class="title is-4 conference-authors">NeurIPS 2025 Submission</a></h3>
+                <h3 class="title is-4 conference-authors">ICLR 2026 Submission</a></h3>
                 <div class="is-size-5 publication-authors">
                   <span class="author-block">
                     Anonymous Authors</span>
@@ -65,7 +65,7 @@
                   <div class="publication-links">
                     <!-- PDF Link. -->
                     <span class="link-block">
-                      <a href="https://openreview.net/pdf?id=2yRE1zqSK4"
+                      <a href="https://openreview.net/attachment?id=E68dgQUzrC&name=pdf"
                          class="external-link button is-normal is-rounded is-dark">
                         <span class="icon">
                             <i class="fas fa-file-pdf"></i>
@@ -95,14 +95,13 @@
                   optimized within a SLAM framework.</p> -->
                 <p style="font-size: 1.2rem;">
                     <strong>Abstract:</strong> 
-                    This work enables everyday devices, e.g., smartphones, to dynamically capture open-ended 3D scenes with rich, expandable semantics for immersive virtual worlds. 
-                    While 3DGS and foundation models hold promise for semantic scene understanding, existing solutions suffer from unscalable semantic integration, prohibitive memory 
-                    costs, and cross-view inconsistency. To respond, we propose Open-Set Semantic Gaussian Splatting SLAM, a GS-SLAM system augmented by an expandable semantic 
-                    feature pool that decouples condensed scene-level semantics from individual 3D Gaussians. Each Gaussian references semantics via a lightweight indexing vector, 
-                    reducing memory overhead by orders of magnitude while supporting dynamic updates. Besides, we introduce a consistency-aware optimization strategy alongside a 
-                    Semantic Stability Guidance mechanism to enhance long-term, cross-view semantic consistency and resolve ambiguities. Experiments demonstrate that our system 
-                    achieves high-fidelity rendering with scalable, open-set semantics across both controlled and in-the-wild envi-ronments, supporting applications like 3D localization 
-                    and scene editing. These results mark an initial yet solid step towards high-quality, expressive, and accessible 3D virtual world modeling.  </p>
+                    This work enables everyday devices, e.g., smartphones, to dynamically capture open-ended 3D scenes with rich, expandable semantics for immersive virtual worlds.  
+                    While 3DGS and foundation models hold promise for semantic scene understanding, existing solutions suffer from unscalable semantic integration, prohibitive memory costs, and cross-view inconsistency.
+                    To respond, we propose Open-Set Semantic Gaussian Splatting SLAM, a GS-SLAM system augmented by an expandable semantic feature pool that decouples condensed scene-level semantics from individual 3D Gaussians. 
+                    Each Gaussian references semantics via a lightweight indexing vector, reducing memory overhead by orders of magnitude while supporting dynamic updates. 
+                    Besides, we introduce a consistency-aware optimization strategy alongside a Semantic Stability Guidance mechanism to enhance long-term, cross-view semantic consistency and resolve inconsistencies. 
+                    Experiments demonstrate that our system achieves high-fidelity rendering with scalable, open-set semantics across both controlled and in-the-wild environments, supporting applications like 3D localization and scene editing. 
+                    These results mark an initial yet solid step towards high-quality, expressive, and accessible 3D virtual world modeling.  </p>
               </div>
             </div>
           </div>
@@ -118,8 +117,8 @@
                 <img src="./static/images/framework.png">
                 <p style="font-size: 1.2rem;"><strong>Framework Overview.</strong>
                   We enhance existing 3DGS-based SLAM with an expandable semantic representation, using an expandable semantic feature pool for growing semantics and assigning each 
-                  Gaussianan aggregated semantic from the pool. Moreover, to improve consistency and reduce ambiguity, we introduce Intra-Inter Semantic Consistency Objectives and 
-                  Semantic Stability Guidance.</p>
+                  Gaussian an aggregated semantic from the pool. Moreover, to improve consistency and reduce the impact of semantic inconsistencies, we introduce Intra-Inter Semantic 
+                  Consistency Objectives and Semantic Stability Guidance.</p>
                 <!-- <img src="./static/images/ssg.png"> -->
               </div>
             </div>
